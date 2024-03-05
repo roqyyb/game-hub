@@ -18,8 +18,6 @@ interface Props {
 }
 
 function PlatFormIconList({ platforms }: Props) {
-  console.log(platforms);
-
   const iconMap: { [key: string]: IconType } = {
     pc: FaWindows,
     linux: FaLinux,
