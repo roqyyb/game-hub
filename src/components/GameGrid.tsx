@@ -26,7 +26,7 @@ function GameGrid({ gameQuery }: Props) {
 
   const skeletons = Array.from({ length: 20 });
 
-  if (error) return <Text>{error.message}</Text>;
+  // if (error) return <Text>{error.message}</Text>;
 
   return (
     <InfiniteScroll
