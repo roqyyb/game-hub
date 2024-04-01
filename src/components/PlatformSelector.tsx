@@ -1,49 +1,15 @@
-// import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-// import { BsChevronDown } from "react-icons/bs";
-// import usePlatforms, { Platform } from "../hooks/usePlatorms";
-
-// interface Props {
-//   onSelectPlatform: (platform: Platform) => void;
-//   selectedPlatform: Platform | null;
-// }
-
-// function PlatformSelector({ selectedPlatform, onSelectPlatform }: Props) {
-//   const { error, data } = usePlatforms();
-//   if (error) return null;
-//   return (
-//     <Menu>
-//       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-//         {selectedPlatform?.name || "Platforms"}
-//       </MenuButton>
-//       <MenuList>
-//         {data?.results?.map((platform) => (
-//           <MenuItem
-//             onClick={() => onSelectPlatform(platform)}
-//             key={platform.id}
-//           >
-//             {platform.name}
-//           </MenuItem>
-//         ))}
-//       </MenuList>
-//     </Menu>
-//   );
-// }
-
-// export default PlatformSelector;
-
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import usePlatforms from "../hooks/usePlatorms";
 import usePlatformLookUp from "../hooks/usePlatformLookUp";
+import useGameQueryStore from "../store";
 
-interface Props {
-  onSelectPlatform: (platformID: number) => void;
-  selectedPlatformID: number;
-}
+function PlatformSelector() {
+  const platformID = useGameQueryStore((s) => s.gameQuery.platformID);
+  const setPlatformID = useGameQueryStore((s) => s.setPlatformID);
 
-function PlatformSelector({ selectedPlatformID, onSelectPlatform }: Props) {
   const { error, data } = usePlatforms();
-  const selectedPlatform = usePlatformLookUp(selectedPlatformID);
+  const selectedPlatform = usePlatformLookUp(platformID);
 
   if (error) return null;
 
@@ -55,7 +21,7 @@ function PlatformSelector({ selectedPlatformID, onSelectPlatform }: Props) {
       <MenuList>
         {data?.results.map((platform) => (
           <MenuItem
-            onClick={() => onSelectPlatform(platform.id)}
+            onClick={() => setPlatformID(platform.id)}
             key={platform.id}
           >
             {platform.name}
